@@ -1,0 +1,76 @@
+Instrucciones para completar la app Zorrito. Lee PLAN.md en /Users/johanafragosoblendl/Zorrito para el contexto completo.
+
+TU TAREA: Implementar los archivos de esta SECCIÓN (los de App y Vistas de Psicólogo).
+
+## Archivos a crear
+
+### src/App.tsx
+- BrowserRouter con rutas para /psy/* y /patient/*
+- Envolver en PatientProvider y ToastProvider
+- Layout: dos columnas para psy (Sidebar + main), una columna para patient (PatientNav + main)
+- Rutas exactas del plan
+
+### src/components/psy/Dashboard.tsx
+- Métricas cards: total pacientes, sesiones semana, promedio mood
+- Timeline de sesiones recientes con emoji del paciente
+- Quick Note persistente con localStore
+- Usa useSessions, usePatients, useToast
+
+### src/components/psy/Expediente.tsx
+- Modo lista: grid cards de pacientes con buscador por alias. Emoji grande, alias, motivo, enfoque (badge), diagnóstico, tags pills. Clic abre modo detalle.
+- Modo detalle: cabecera con alias+emoji, todos los campos editables inline (motivo_consulta textarea, enfoque select TCC/ACT/EMDR/Narrativa/DBT/Gestalt, diagnostico_cie10 input, tags pills con input+Enter para agregar). Listado de sesiones del paciente (fecha, mood, insight). Botón "Nueva sesión" navega a /psy/nueva-sesion/:patientId. Botón ← Volver.
+- Usa usePatients, useSessions
+
+### src/components/psy/NuevaSesion.tsx
+- Formulario completo con todos los campos del modelo Session
+- Inputs: date (type=date), duration_min (number), summary/field_notes/interventions/homework (textarea)
+- Sliders: mood_score 1-10, insight_level 1-5, mostrar valor actual
+- Tags: input + Enter para agregar pills, cada pill con X para quitar
+- Save -> useSessions.addSession -> toast -> redirect /psy/expediente/:patientId
+
+### src/components/psy/EjerciciosHub.tsx
+- Grid 6 cards: Externalización, Tabla Etiquetas, Respiración, Carta Compasiva, Mapa de Valores, Bienvenida del Yo
+- Cada card emoji + nombre + descripción breve
+- Clic: selecciona paciente (si no viene por URL) y navega a /psy/ejercicios/:type/:patientId
+
+### src/components/psy/PruebasHub.tsx  
+- Grid 5 cards: PHQ-9, GAD-7, PCL-5, BDI-II, DASS-21
+- Selector de paciente arriba (dropdown con usePatients)
+- Gráfica Recharts AreaChart filtrando test_results por test_type y patientId
+- Eje X fechas, Y score. Tooltip. Tabs para filtrar por tipo de test. area=lav
+
+### src/components/psy/Formacion.tsx
+- Grid de trainingResources del mock
+- Filtro por tag: botones pills con tags únicos usados por los pacientes del psicólogo (usePatients). "Todos" muestra todo.
+- Card por recurso: título, tipo badge (Curso/Artículo), duración, tags pills
+
+### src/components/patient/PatHome.tsx
+- Card Mood check-in: 5 emojis grandes 😔 😐 🙂 😊 😄 clickeables. Clic -> useDiary.addEntry content="Mood: X" shared=true
+- Confetti con canvas-confetti al registrar mood
+- Card "Tu personaje": useCharacters, muestra emoji+nombre+voice_quote si existe
+- Card "Próxima tarea": última homework de session más reciente
+- Mini cards contadores: días con check-in esta semana, ejercicios, tests
+
+### src/components/patient/PatEjercicios.tsx
+- Lista ejercicios del paciente con shared_with_patient=true
+- Card por ejercicio: tipo, fecha. Badge shared. Clic abre vista simplificada
+- Solo lectura o interacción limitada (tabla_etiquetas permite refactor, mapa_valores permite toggle, carta_compasiva es textarea)
+
+### src/components/patient/PatPruebas.tsx
+- Lista test_results del paciente activo. Card: test_type, score, severity badge colorido, fecha
+
+### src/components/patient/PatDiario.tsx
+- Lista entries ordenadas por fecha desc. Card: fecha formateada (DD/MM/YYYY), contenido, badge "Compartido" si shared=true.
+- Formulario: textarea grande, checkbox "Compartir con psicólogo", botón Guardar -> useDiary.addEntry
+- Toggle shared en entries existentes: botón/secundario que usa useDiary.toggleShared
+
+## REGLAS
+- Usa SOLO las clases CSS definidas (.card, .btn-primary, etc.) y colores tailwind (fox, lav, mint, peach, pink, cream).
+- rounded-2xl para cards, rounded-full para pills/botones.
+- TypeScript estricto. Imports únicos. Export default function.
+- NO modifiques ningún archivo existente de src/ salvo App.tsx.
+- Usa los hooks/contextos ya existentes (usePatients, useSessions, useDiary, etc.).
+- Si algo del hook no existe, simula el comportamiento con lo más cercano existente y escribe un comentario.
+- Lee los types en src/lib/types.ts para usar interfaces correctas.
+
+Al terminar corre `cd /Users/johanafragosoblendl/Zorrito && npm run dev` y confirma que compila sin errores. Si hay errores de build o type, corrígelos hasta que pase.

@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /patients/{patientId} {
+      allow read, write: if request.auth != null;
+    }
+    match /sessions/{sessionId} {
+      allow read, write: if request.auth != null;
+    }
+    match /exercises/{exerciseId} {
+      allow read, write: if request.auth != null;
+    }
+    match /test_results/{resultId} {
+      allow read, write: if request.auth != null;
+    }
+    match /diary_entries/{entryId} {
+      allow read, write: if request.auth != null;
+    }
+    match /characters/{charId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
