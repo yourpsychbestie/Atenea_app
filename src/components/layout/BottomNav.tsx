@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import FoxLogo from './FoxLogo'
 
 const LINKS = [
   { to: '/psy/dashboard', icon: '📊', label: 'Dashboard' },
@@ -12,6 +13,9 @@ const LINKS = [
 export default function BottomNav() {
   return (
     <nav className="flex lg:hidden items-center justify-around border-t-[1.5px] border-[#FDDCCA] bg-white px-2 py-2 dark:bg-[#2a1d15] dark:border-[#3a2d1f]">
+      <div className="flex flex-col items-center gap-0.5 px-2">
+        <FoxLogo size={20} variant="curl" />
+      </div>
       {LINKS.map((link) => (
         <NavLink
           key={link.to}

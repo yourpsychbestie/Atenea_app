@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import FoxLogo from './FoxLogo'
 
 const links = [
   { to: '/psy/dashboard', label: 'Dashboard', icon: '🏠' },
@@ -12,6 +13,10 @@ const links = [
 export default function Sidebar() {
   return (
     <aside className="hidden w-56 shrink-0 border-r-[1.5px] border-[#FDDCCA] bg-white px-3 py-5 dark:bg-[#2a1d15] dark:border-[#3a2d1f] lg:block">
+      <div className="mb-4 flex items-center gap-2 px-2">
+        <FoxLogo size={30} variant="face" />
+        <span className="text-base font-extrabold text-fox-dark dark:text-cream">Atenea</span>
+      </div>
       <nav className="flex flex-col gap-1">
         {links.map((link) => (
           <NavLink

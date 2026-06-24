@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import FoxLogo from './FoxLogo'
 
 const links = [
   { to: '/patient/home', label: 'Inicio', icon: '🏠' },
@@ -10,6 +11,10 @@ const links = [
 export default function PatientNav() {
   return (
     <nav className="flex items-center gap-2 border-b-[1.5px] border-[#FDDCCA] bg-white px-6 py-2">
+      <div className="mr-2 hidden items-center gap-2 sm:flex">
+        <FoxLogo size={26} variant="sit" />
+        <span className="text-sm font-extrabold text-fox-dark">Atenea</span>
+      </div>
       {links.map((link) => (
         <NavLink
           key={link.to}
