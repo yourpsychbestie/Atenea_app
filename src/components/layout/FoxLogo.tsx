@@ -10,9 +10,10 @@ const SPRITE_W = 1115
 const SPRITE_H = 944
 
 const CROP = {
-  face: { x: 0, y: 80, size: 470 },
-  sit: { x: 0, y: 430, size: 480 },
-  curl: { x: 430, y: 90, size: 650 },
+  // Recortes cuadrados para cada zorrito del sprite
+  face: { x: 18, y: 95, size: 360 },
+  sit: { x: 8, y: 430, size: 430 },
+  curl: { x: 430, y: 80, size: 640 },
 } as const
 
 export default function FoxLogo({ size = 40, className = '', variant = 'face' }: FoxLogoProps) {
